@@ -1,42 +1,176 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Global body styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4; /* fallback color */
+  background-image: url('/src/assets/bg.jpeg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  color: #222;
+}
+
+/* Wrapper to stretch the layout */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1; /* Pushes footer down */
+}
+
+/* Navbar styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding: 15px 30px;
+  color: white;
+  border-bottom: 2px solid orange;
+}
+
+.navbar a {
+  color: white;
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* Auth container */
+.auth-container {
+  max-width: 400px;
+  margin: 80px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.auth-title {
+  font-size: 28px;
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.auth-form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  border: 1px solid white;
+  border-radius: 8px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.auth-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.auth-form button:hover {
+  background-color: blueviolet;
 }
 
-.card {
-  padding: 2em;
+.auth-message {
+  text-align: center;
+  color: red;
+  font-size: 14px;
 }
 
-.read-the-docs {
-  color: #888;
+.switch-auth {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.switch-auth a {
+  color: gray;
+  text-decoration: none;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #222;
+  color: #fff;
+  padding: 1rem 1rem;
+  margin-top: auto;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+}
+
+.footer-brand, .footer-newsletter, .footer-contact {
+  flex: 1 1 300px;
+  margin-bottom: 0.5rem;
+  padding: 0.05rem;
+}
+
+.footer-newsletter input {
+  padding: 0.1rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  border: none;
+  border-radius: 4px;
+}
+
+.footer-newsletter button {
+  padding: 0.5rem 1rem;
+  background-color: #ffa500;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.footer-newsletter button:hover {
+  background-color: #ff8800;
+}
+
+.footer-contact h4 {
+  color: #ffa500;
+  margin-bottom: 0.8rem;
+}
+
+.footer-contact p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  color: #bbb;
+  border-top: 1px solid #444;
+  padding-top: 1rem;
+  margin-top: 2rem;
+}
+
+.footer-socials span {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.footer-socials span:hover {
+  color: #ffa500;
 }

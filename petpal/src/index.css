@@ -1,68 +1,94 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+/* Make the app layout stretch full height */
+html, body, #root {
+  height: 100%;
   margin: 0;
+}
+
+.app-wrapper {
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Make the content area flexible */
+.container {
+  flex: 1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+/* Footer styles */
+.footer {
+  background-color: #222;
+  color: #fff;
+  padding: 1rem 1rem;
+  margin-top: auto;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+}
+
+.footer-brand, .footer-newsletter, .footer-contact {
+  flex: 1 1 300px;
+  margin-bottom: 0.5rem;
+  padding: 0.05rem;
+}
+
+.footer-newsletter input {
+  padding: 0.1rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  border: none;
+  border-radius: 4px;
+}
+
+.footer-newsletter button {
+  padding: 0.5rem 1rem;
+  background-color: #ffa500;
+  border: none;
+  color: #fff;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  border-radius: 4px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.footer-newsletter button:hover {
+  background-color: #ff8800;
+}
+
+.footer-contact h4 {
+  color: #ffa500;
+  margin-bottom: 0.8rem;
+}
+
+.footer-contact p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  color: #bbb;
+  border-top: 1px solid #444;
+  padding-top: 1rem;
+  margin-top: 2rem;
+}
+
+.footer-socials span {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.footer-socials span:hover {
+  color: #ffa500;
+}
+body {
+  background-color: black;
+  color: #222;
+  font-family: sans-serif;
 }
