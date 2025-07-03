@@ -41,15 +41,15 @@ petpal/
 │ └── app.py
 └── README.md
 
-yaml
+
 Copy
 Edit
 
 ---
 
-##  Getting Started
+    Getting Started
 
-### 1. Clone the Repo
+    1. Clone the Repo
 
 ```bash
 git clone https://github.com/yourusername/petpal.git
@@ -80,16 +80,16 @@ The frontend will run on http://localhost:5173
  Make sure the frontend is fetching data from the backend (http://localhost:5000)
 
  Deployment
-Backend (e.g., Render/Railway)
+Backend 
 Push your Flask backend to GitHub
 
 Create a new Render or Railway project
 
-Add environment variables (e.g., DATABASE_URL, FLASK_ENV)
+Add environment variables 
 
 Deploy and copy the public API URL
 
-Frontend (e.g., Netlify/Vercel)
+Frontend 
 Push your Vite frontend to GitHub
 
 Update API URLs in src to use the deployed backend URL

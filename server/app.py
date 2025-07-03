@@ -7,6 +7,8 @@ from flask_jwt_extended import (
     JWTManager, create_access_token, jwt_required,
     get_jwt_identity
 )
+
+
 from datetime import datetime
 from models import db, Users, Pet, Appointment, ServiceProvider, Note
 
@@ -20,6 +22,12 @@ migrate = Migrate(app, db)
 jwt = JWTManager(app)
 api = Api(app)
 CORS(app, origins=["http://localhost:5173", "http://127.0.0.1:5173"], supports_credentials=True)
+def validate_required_fields(data, required_fields):
+    """ check for required missing fields"""
+    missing = [field for field in required_fields if field not in data]
+    if missing:
+        return {'error': f'Missing fields: {", ".join(missing)}'}, 400
+    return None    
 
 class Home(Resource):
     def get(self):
@@ -61,27 +69,38 @@ class User(Resource):
         return [u.to_dict() for u in users], 200
 
 class Pets(Resource):
-    @jwt_required()
+
     def get(self):
-        user = get_jwt_identity()
-        pets = Pet.query.filter_by(owner_id=user['id']).all()
+        """Get all pets (now without authentication)"""
+        pets = Pet.query.all() 
         return [p.to_dict() for p in pets], 200
 
-    @jwt_required()
+
     def post(self):
+        """Create a new pet (now without authentication)"""
         data = request.get_json()
-        user = get_jwt_identity()
+        
+        # Validate required fields
+        required = ['name', 'species', 'breed', 'age']
+        if not all(field in data for field in required):
+            return {"error": "Missing required fields"}, 400
+        
         pet = Pet(
             name=data['name'],
             species=data['species'],
             breed=data['breed'],
             age=data['age'],
-            medical_history=data['medical_history'],
-            owner_id=user['id']
+            medical_history=data.get('medical_history'),
+            owner_id=data.get('owner_id', 1) 
         )
+        
         db.session.add(pet)
         db.session.commit()
-        return {"message": "Pet added", "data": pet.to_dict()}, 201
+        
+        return {
+            "message": "Pet added successfully",
+            "data": pet.to_dict()
+        }, 201
 
 class PetById(Resource):
     @jwt_required()
@@ -174,5 +193,9 @@ api.add_resource(Appointments, '/appointments')
 api.add_resource(Notes, '/notes')
 api.add_resource(Providers, '/providers')
 
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
+
+print(app.config['JWT_SECRET_KEY'])
+print(app.url_map)

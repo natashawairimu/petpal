@@ -33,7 +33,7 @@ class Pet(db.Model):
     medical_history = db.Column(db.Text)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     notes = db.relationship('Note', backref='pet', cascade='all, delete')
-    appointments = db.relationship('Appointment', backref='pet', cascade='all, delete')
+    appointments = db.relationship('Appointment', back_populates='pet', cascade='all, delete')
 
     def to_dict(self):
         return {
@@ -51,7 +51,7 @@ class ServiceProvider(db.Model):
     name = db.Column(db.String(100))
     type = db.Column(db.String(50))  # vet, groomer, etc.
     contact = db.Column(db.String(100))
-    appointments = db.relationship('Appointment', backref='provider')
+    appointments = db.relationship('Appointment', back_populates='provider')
 
     def to_dict(self):
         return {
@@ -64,15 +64,20 @@ class ServiceProvider(db.Model):
 class Appointment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, nullable=False)
-    reason = db.Column(db.String(255))
-    pet_id = db.Column(db.Integer, db.ForeignKey('pet.id'))
-    provider_id = db.Column(db.Integer, db.ForeignKey('service_provider.id'))
+    reason = db.Column(db.String(255), nullable=False)
+    pet_id = db.Column(db.Integer, db.ForeignKey('pet.id'), nullable=False)
+    provider_id = db.Column(db.Integer, db.ForeignKey('service_provider.id'), nullable=False)
+
+    pet = db.relationship('Pet', back_populates='appointments')
+    provider = db.relationship('ServiceProvider', back_populates='appointments')
 
     def to_dict(self):
         return {
             "id": self.id,
             "date": self.date.isoformat(),
             "reason": self.reason,
+            "pet_id": self.pet_id,
+            "provider_id": self.provider_id,
             "pet": self.pet.to_dict() if self.pet else None,
             "provider": self.provider.to_dict() if self.provider else None
         }
