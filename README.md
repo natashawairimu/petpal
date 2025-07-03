@@ -42,8 +42,7 @@ petpal/
 └── README.md
 
 
-Copy
-Edit
+
 
 ---
 
