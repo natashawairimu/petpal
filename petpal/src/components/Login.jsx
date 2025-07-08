@@ -1,70 +1,73 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from './Auth';
+// Importing the AuthContext to access login function and user data
+import { AuthContext } from "../context/AuthContext";
 
-function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+export default function Login() {
+    // Set up state to store email and password entered by the user
+    const [credentials, setCredentials] = useState({ email: "", password: "" });
+
+    const [error, setError] = useState(null);
+
+    // Accessing login function from AuthContext
+    const { Login } = useContext(AuthContext); 
     const { login } = useContext(AuthContext);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setError('');
+    // Hook for navigation after successful login
+    const navigate = useNavigate();
 
-        fetch('http://localhost:5555/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        throw new Error(errorData.message || 'Login failed. Please try again.');
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.user && data.user.id && data.access_token) {
-                    login(data.user, data.access_token);
-                    navigate('/');
-                } else {
-                    setError('Login successful, but user data or token is missing from response.');
-                }
-            })
-            .catch(err => {
-                setError(err.message || 'An unexpected error occurred.');
-            });
+    // Function to handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault(); 
+
+        try {
+            
+            const data = await login(credentials); 
+            console.log("Login success", data);
+
+            // Redirect to dashboard on success
+            navigate("/dashboard");
+        } catch (err) {
+            alert(err.response?.data?.error || "Login failed");
+        }
     };
 
     return (
         <div className="auth-container">
+            {}
             <h2 className="auth-title">Log In</h2>
+
+            {}
             <form className="auth-form" onSubmit={handleSubmit}>
+                {}
                 <input
                     type="email"
                     placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={credentials.email}
+                    onChange={(e) => setCredentials({...credentials, email: e.target.value})}
                     required
                 />
+
+                {}
                 <input
                     type="password"
                     placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={credentials.password}
+                    onChange={(e) => setCredentials({...credentials, password: e.target.value})}
                     required
                 />
+
+                {}
                 <button type="submit">Log In</button>
+
+                {}
                 {error && <p className="auth-message">{error}</p>}
             </form>
+
+            {/* Link to signup page for users without an account */}
             <p className="switch-auth">
                 Don't have an account? <a href="/signup">Sign up</a>
             </p>
         </div>
     );
 }
-
-export default Login;
